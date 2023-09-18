@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMovement movement;
     private PlayerLook look;
+    private PlayerShoot shoot;
 
     void Awake()
     {
@@ -16,12 +17,14 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        shoot = GetComponent<PlayerShoot>();
 
         onFoot.Jump.performed += _ => movement.Jump();
         onFoot.Crouch.performed += _ => movement.Crouch();
         onFoot.Crouch.canceled += _ => movement.Crouch();
         onFoot.Sprint.performed += _ => movement.Sprint();
         onFoot.Sprint.canceled += _ => movement.Sprint();
+        onFoot.Fire.performed += _ => shoot.DoFire();
     }
 
     void FixedUpdate()
